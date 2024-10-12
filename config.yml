@@ -1,0 +1,2 @@
+postgres:
+  dsn: "host=localhost user=stech password=stech dbname=foodbar port=5432 sslmode=disable TimeZone=Asia/Jakarta"
