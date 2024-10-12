@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/agilistikmal/foodbar-api/internal/foodbar/service"
@@ -20,7 +19,6 @@ func NewProductHandler(service *service.ProductService) *ProductHandler {
 
 func (h *ProductHandler) Find(w http.ResponseWriter, r *http.Request) {
 	barcode := r.PathValue("barcode")
-	log.Println(barcode)
 	product, err := h.service.Find(barcode)
 	if err != nil {
 		if err.Error() == "record not found" {
