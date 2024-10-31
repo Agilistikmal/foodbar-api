@@ -1,0 +1,5 @@
+postgres:
+  dsn: "host=localhost user=... password=... dbname=foodbar port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+halalmui:
+  base_url: "..."
+  secret_code: "..."
