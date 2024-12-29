@@ -1,10 +1,10 @@
 package model
 
 type HalalResponse struct {
-	Message string      `json:"message,omitempty"`
-	Status  string      `json:"status,omitempty"`
-	Total   int         `json:"total,omitempty"`
-	Data    []HalalData `json:"data,omitempty"`
+	Message string       `json:"message,omitempty"`
+	Status  string       `json:"status,omitempty"`
+	Total   int          `json:"total,omitempty"`
+	Data    []*HalalData `json:"data,omitempty"`
 }
 
 type HalalData struct {

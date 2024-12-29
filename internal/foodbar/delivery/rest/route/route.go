@@ -25,4 +25,5 @@ func (r *Route) Init() {
 
 func (r *Route) ProductRoutes() {
 	r.Mux.HandleFunc("GET /product/{barcode}", r.ProductHandler.Find)
+	r.Mux.HandleFunc("GET /search/{query}", r.ProductHandler.Search)
 }

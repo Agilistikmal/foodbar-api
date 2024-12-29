@@ -30,3 +30,17 @@ func (h *ProductHandler) Find(w http.ResponseWriter, r *http.Request) {
 	}
 	pkg.SendSuccess(w, product)
 }
+
+func (h *ProductHandler) Search(w http.ResponseWriter, r *http.Request) {
+	query := r.PathValue("query")
+	products, err := h.service.Search(query)
+	if err != nil {
+		if err.Error() == "record not found" {
+			pkg.SendError(w, http.StatusNotFound, err.Error())
+		} else {
+			pkg.SendError(w, http.StatusInternalServerError, err.Error())
+		}
+		return
+	}
+	pkg.SendSuccess(w, products)
+}
