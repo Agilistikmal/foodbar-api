@@ -32,7 +32,7 @@ func (s *ProductService) Find(barcode string) (*model.ProductWithHalalData, erro
 		Product: product,
 	}
 
-	if product.Certificate == "" {
+	if product.Barcode != "" {
 		halalRequest := &model.HalalRequest{
 			NamaProduct: strings.Split(product.Name, " ")[0],
 			SecretCode:  viper.GetString("halalmui.secret_code"),
