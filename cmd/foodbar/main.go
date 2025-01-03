@@ -23,7 +23,11 @@ func main() {
 	productService := service.NewProductService(productRepository, halalRepository)
 	productHandler := rest.NewProductHandler(productService)
 
-	routes := route.NewRoutes(productHandler)
+	authRepository := repository.NewAuthRepository(db)
+	authService := service.NewAuthService(authRepository)
+	authHandler := rest.NewAuthHandler(authService)
+
+	routes := route.NewRoutes(productHandler, authHandler)
 	routes.Init()
 
 	log.Println("Running on http://localhost:8080")

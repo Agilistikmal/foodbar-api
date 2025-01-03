@@ -15,7 +15,7 @@ func NewDatabase() *gorm.DB {
 		log.Fatal(err)
 	}
 
-	db.AutoMigrate(&model.Product{}, &model.HalalData{})
+	db.AutoMigrate(&model.Product{}, &model.HalalData{}, &model.Auth{})
 
 	return db
 }
