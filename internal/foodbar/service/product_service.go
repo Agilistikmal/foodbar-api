@@ -13,12 +13,14 @@ import (
 )
 
 type ProductService struct {
-	repository *repository.ProductRepository
+	repository      *repository.ProductRepository
+	halalRepository *repository.HalalRepository
 }
 
-func NewProductService(repository *repository.ProductRepository) *ProductService {
+func NewProductService(repository *repository.ProductRepository, halalRepository *repository.HalalRepository) *ProductService {
 	return &ProductService{
-		repository: repository,
+		repository:      repository,
+		halalRepository: halalRepository,
 	}
 }
 
@@ -28,11 +30,15 @@ func (s *ProductService) Find(barcode string) (*model.ProductWithHalalData, erro
 		return nil, err
 	}
 
+	halalDataSaved, _ := s.halalRepository.Search(strings.Split(product.Name, " ")[0])
+
 	productWithHalalData := &model.ProductWithHalalData{
 		Product: product,
 	}
 
-	if product.Barcode != "" {
+	if len(halalDataSaved) > 0 {
+		productWithHalalData.HalalData = halalDataSaved[0]
+	} else {
 		halalRequest := &model.HalalRequest{
 			NamaProduct: strings.Split(product.Name, " ")[0],
 			SecretCode:  viper.GetString("halalmui.secret_code"),
@@ -63,6 +69,7 @@ func (s *ProductService) Find(barcode string) (*model.ProductWithHalalData, erro
 				product.Certificate = data.NomorSertifikat
 				productWithHalalData.HalalData = data
 				s.repository.Save(product)
+				s.halalRepository.Save(data)
 				break
 			}
 		}

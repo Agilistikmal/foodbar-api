@@ -16,8 +16,11 @@ func main() {
 	config.NewConfig()
 
 	db := database.NewDatabase()
+
+	halalRepository := repository.NewHalalRepository(db)
+
 	productRepository := repository.NewProductRepository(db)
-	productService := service.NewProductService(productRepository)
+	productService := service.NewProductService(productRepository, halalRepository)
 	productHandler := rest.NewProductHandler(productService)
 
 	routes := route.NewRoutes(productHandler)
