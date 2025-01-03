@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
@@ -41,8 +40,6 @@ func (s *ProductService) Find(barcode string) (*model.ProductWithHalalData, erro
 	}
 
 	halalDataSaved, _ := s.halalRepository.Search(strings.Split(product.Name, " ")[0])
-
-	log.Println(halalDataSaved)
 
 	if len(halalDataSaved) > 0 {
 		productWithHalalData.HalalData = halalDataSaved[0]
