@@ -1,5 +1,5 @@
 postgres:
-  dsn: "host=localhost user=stech password=stech dbname=foodbar port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+  dsn: "host=103.150.190.149 user=stech password=stech dbname=foodbar port=5432 sslmode=disable TimeZone=Asia/Jakarta"
 halalmui:
   base_url: "http://dev-api.halalmui.org"
   secret_code: "H4l4lMU!"

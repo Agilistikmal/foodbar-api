@@ -25,6 +25,10 @@ func NewProductService(repository *repository.ProductRepository, halalRepository
 }
 
 func (s *ProductService) Find(barcode string) (*model.ProductWithHalalData, error) {
+	if string(barcode[0]) == "0" {
+		barcode = barcode[1:]
+	}
+
 	product, err := s.repository.Find(barcode)
 	if err != nil {
 		return nil, err
