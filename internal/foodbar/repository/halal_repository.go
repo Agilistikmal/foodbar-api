@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"strings"
+
 	"github.com/agilistikmal/foodbar-api/internal/foodbar/model"
 	"gorm.io/gorm"
 )
@@ -17,8 +19,8 @@ func NewHalalRepository(db *gorm.DB) *HalalRepository {
 
 func (r *HalalRepository) Search(query string) ([]*model.HalalData, error) {
 	var result []*model.HalalData
-	queryLike := "%" + query + "%"
-	err := r.db.Find(&result, "nama_produk LIKE ? AND updated_at > now() - interval '24 hours'", queryLike).Error
+	queryLike := "%" + strings.ToLower(query) + "%"
+	err := r.db.Find(&result, "LOWER(nama_produk) LIKE ? AND updated_at > now() - interval '24 hours'", queryLike).Error
 	if err != nil {
 		return nil, err
 	}

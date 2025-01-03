@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 
@@ -25,6 +26,7 @@ func NewProductService(repository *repository.ProductRepository, halalRepository
 }
 
 func (s *ProductService) Find(barcode string) (*model.ProductWithHalalData, error) {
+
 	if string(barcode[0]) == "0" {
 		barcode = barcode[1:]
 	}
@@ -34,11 +36,13 @@ func (s *ProductService) Find(barcode string) (*model.ProductWithHalalData, erro
 		return nil, err
 	}
 
-	halalDataSaved, _ := s.halalRepository.Search(strings.Split(product.Name, " ")[0])
-
 	productWithHalalData := &model.ProductWithHalalData{
 		Product: product,
 	}
+
+	halalDataSaved, _ := s.halalRepository.Search(strings.Split(product.Name, " ")[0])
+
+	log.Println(halalDataSaved)
 
 	if len(halalDataSaved) > 0 {
 		productWithHalalData.HalalData = halalDataSaved[0]
